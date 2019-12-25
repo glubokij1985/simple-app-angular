@@ -1,0 +1,36 @@
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.wrap{
+    min-width: 300px;
+    box-shadow: 0 0 5px 0 rgba(#000, .5);
+    padding: 15px;
+}
+.header{
+    text-align: center;
+    color: #816398;
+}
+mat-form-field{
+    width: 100%;
+}
+.btn-holder{
+    text-align: center;
+}
+.btn{
+    min-width: 150px;
+}
+.input-holder{
+    position: relative;
+    margin-bottom: 15px;
+}
+.error-message{
+    font-size: 12px;
+    color: #ff0000;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}

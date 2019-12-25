@@ -1,0 +1,27 @@
+<form [formGroup]="loginForm" class="wrap">
+  <div class="header">
+    <mat-icon>verified_user</mat-icon>
+  </div>
+  <div class="input-holder">
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Your e-mail">
+    </mat-form-field>
+    <div class="error-message"
+      *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+    >E-mail field is required</div>
+  </div>
+  <div class="input-holder">
+    <mat-form-field>
+      <input matInput formControlName="password" placeholder="Your password">
+    </mat-form-field>
+    <div class="error-message"
+      *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+    >Password field is required</div>
+  </div>
+  <div class="reset-holder">
+    <a routerLink="reset-password" routerLinkActive="active">Reset password</a>
+  </div>
+  <div class="btn-holder">
+    <button mat-raised-button class="btn">Login</button>
+  </div>
+</form>
