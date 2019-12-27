@@ -33,3 +33,13 @@ mat-form-field{
     top: 100%;
     left: 0;
 }
+a{
+    color: #816398;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: inline-block;
+    &:hover{
+        text-decoration: none;
+    }
+}

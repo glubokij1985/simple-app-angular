@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,7 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
   public loginForm: FormGroup;
-  constructor() {
+
+  constructor(private router: Router) {
     this.loginForm = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
@@ -22,6 +24,11 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  public submit(): void {
+    localStorage.setItem('user', JSON.stringify(this.loginForm.value));
+    this.router.navigate(['store']);
   }
 
 }
