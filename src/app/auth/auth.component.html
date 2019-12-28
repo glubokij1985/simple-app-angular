@@ -3,21 +3,17 @@
     <mat-icon>verified_user</mat-icon>
   </div>
   <div class="input-holder">
-    <mat-form-field>
-      <input matInput formControlName="email" type="email" placeholder="Your e-mail">
-    </mat-form-field>
+    <input formControlName="email" type="email" placeholder="Your e-mail" [class.error]="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
     <mat-error class="error-message" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
       <div *ngIf="loginForm.get('email').hasError('required')">E-mail field is required</div>
       <div *ngIf="loginForm.get('email').hasError('email')">E-mail field isn't match email address</div>
     </mat-error>
   </div>
   <div class="input-holder">
-    <mat-form-field>
-      <input matInput formControlName="password" type="password" placeholder="Your password">
-    </mat-form-field>
+    <input formControlName="password" type="password" placeholder="Your password" [class.error]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
     <mat-error class="error-message" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
       <div *ngIf="loginForm.get('password').hasError('required')">Password field is required</div>
-      <div *ngIf="loginForm.get('password').hasError('pattern')">Password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters</div>
+      <div *ngIf="loginForm.get('password').hasError('pattern')">Password has to be stronger</div>
     </mat-error>
   </div>
   <div class="reset-holder">
