@@ -17,14 +17,17 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private router: Router) {
     this.resetPasswordForm = new FormGroup({
-      newPassword: new FormControl('', [
-        Validators.required,
-        Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
-      ]),
-      repeatPassword: new FormControl('', [
-        Validators.required,
-        Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
-      ]),
+      newPassword: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
+        ],
+        updateOn: 'submit',
+      }),
+      repeatPassword: new FormControl('', {
+        validators: Validators.required,
+        updateOn: 'submit',
+      }),
     }, [this.isMatched]);
   }
 
@@ -44,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public updatePassword(): void {
-    let oldUserInfo: IUser = JSON.parse(localStorage.getItem('user'));
+    const oldUserInfo: IUser = JSON.parse(localStorage.getItem('user'));
     oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
     localStorage.setItem('user', JSON.stringify(oldUserInfo));
   }

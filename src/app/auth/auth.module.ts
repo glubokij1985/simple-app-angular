@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
-  { path: 'login/reset-password', component: ResetPasswordComponent, },
+  { path: 'reset-password', component: ResetPasswordComponent, },
 ];
 
 @NgModule({

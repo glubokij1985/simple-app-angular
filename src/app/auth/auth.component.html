@@ -3,21 +3,25 @@
     <mat-icon>verified_user</mat-icon>
   </div>
   <div class="input-holder">
-    <input formControlName="email" type="email" placeholder="Your e-mail" [class.error]="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-    <mat-error class="error-message" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+    <mat-form-field>
+      <input matInput formControlName="email" type="email" placeholder="Your e-mail">
+    </mat-form-field>
+    <mat-error class="error-message" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
       <div *ngIf="loginForm.get('email').hasError('required')">E-mail field is required</div>
       <div *ngIf="loginForm.get('email').hasError('email')">E-mail field isn't match email address</div>
     </mat-error>
   </div>
   <div class="input-holder">
-    <input formControlName="password" type="password" placeholder="Your password" [class.error]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-    <mat-error class="error-message" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+    <mat-form-field>
+      <input matInput formControlName="password" type="password" placeholder="Your password">
+    </mat-form-field>
+    <mat-error class="error-message" *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
       <div *ngIf="loginForm.get('password').hasError('required')">Password field is required</div>
       <div *ngIf="loginForm.get('password').hasError('pattern')">Password has to be stronger</div>
     </mat-error>
   </div>
   <div class="reset-holder">
-    <a routerLink="reset-password" routerLinkActive="active">Reset password</a>
+    <a routerLinkActive="active" (click)="goToResetPassword()">Reset password</a>
   </div>
   <div class="btn-holder">
     <button mat-raised-button type="submit" [disabled]="!loginForm.valid" class="btn">Login</button>

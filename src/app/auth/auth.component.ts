@@ -11,6 +11,10 @@ export class AuthComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(private router: Router) {
+    if (localStorage.getItem('user')) {
+      this.router.navigate(['store']);
+    }
+
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -29,6 +33,16 @@ export class AuthComponent implements OnInit {
   public submit(): void {
     localStorage.setItem('user', JSON.stringify(this.loginForm.value));
     this.router.navigate(['store']);
+  }
+
+  public goToResetPassword(): void {
+    if (this.loginForm.get('email').valid) {
+    // if (this.loginForm.get('email').valid &&
+    // (localStorage.getItem('user') && this.loginForm.get('email').value === JSON.parse(localStorage.getItem('user')).email)) {
+      this.router.navigate(['reset-password']);
+    } else {
+      this.loginForm.get('email').markAsTouched();
+    }
   }
 
 }
