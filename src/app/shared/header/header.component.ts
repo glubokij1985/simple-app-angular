@@ -14,7 +14,6 @@ interface IUser {
 export class HeaderComponent implements OnInit {
   public isLoggedIn: boolean = true;
   public user: IUser = this.getLocalStorage();
-  public email: string = this.user.email ? this.user.email : '';
 
   constructor(private router: Router) { }
 

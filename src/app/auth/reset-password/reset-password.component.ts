@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
 interface IUser {
@@ -17,29 +17,28 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private router: Router) {
     this.resetPasswordForm = new FormGroup({
-      'newPassword': new FormControl('', [
+      newPassword: new FormControl('', [
         Validators.required,
         Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
       ]),
-      'repeatPassword': new FormControl('', [
+      repeatPassword: new FormControl('', [
         Validators.required,
         Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
       ]),
-    });
+    }, [this.isMatched]);
   }
 
   ngOnInit() {
   }
 
-  public isMatched(form: FormGroup): boolean {
-    let newPassword: string = form.get('newPassword').value;
-    let repeatPassword: string = form.get('repeatPassword').value;
+  public isMatched(form: AbstractControl): ValidationErrors | null {
+    const newPassword: string = form.get('newPassword').value;
+    const repeatPassword: string = form.get('repeatPassword').value;
 
-    return newPassword == repeatPassword;
+    return newPassword === repeatPassword ? null : { passwordMatch: true };
   }
 
   public submit(): void {
-    console.log(this.isMatched(this.resetPasswordForm));
     this.updatePassword();
     this.router.navigate(['login']);
   }

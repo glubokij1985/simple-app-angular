@@ -12,11 +12,11 @@ export class AuthComponent implements OnInit {
 
   constructor(private router: Router) {
     this.loginForm = new FormGroup({
-      'email': new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.email,
       ]),
-      'password': new FormControl('', [
+      password: new FormControl('', [
         Validators.required,
         Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
       ]),
