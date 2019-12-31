@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalService } from '../services/local.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
+  providers: [LocalService],
 })
 export class AuthComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private router: Router) {
-    if (localStorage.getItem('user')) {
+  constructor(
+    private localService: LocalService,
+    private router: Router,
+  ) {
+    if (this.localService.getStorage('user')) {
       this.router.navigate(['store']);
     }
 
@@ -31,14 +36,15 @@ export class AuthComponent implements OnInit {
   }
 
   public submit(): void {
-    localStorage.setItem('user', JSON.stringify(this.loginForm.value));
+    this.localService.setStorage('user', this.loginForm.value);
     this.router.navigate(['store']);
   }
 
   public goToResetPassword(): void {
     if (this.loginForm.get('email').valid) {
     // if (this.loginForm.get('email').valid &&
-    // (localStorage.getItem('user') && this.loginForm.get('email').value === JSON.parse(localStorage.getItem('user')).email)) {
+    // (this.localServise.getStorage('user') &&
+    // this.loginForm.get('email').value === JSON.parse(this.localService.getStorage('user')).email)) {
       this.router.navigate(['reset-password']);
     } else {
       this.loginForm.get('email').markAsTouched();

@@ -2,7 +2,9 @@
   <span class="page-name">Store</span>
   <div class="actions">
     <span class="header-cart">
-      <mat-icon>shopping_cart</mat-icon>
+      <a routerLink="cart" routerLinkActive="active">
+        <mat-icon>shopping_cart</mat-icon>
+      </a>
     </span>
     <span>{{ user?.email }}</span>
     <button mat-raised-button type="button" *ngIf="isLoggedIn" (click)="clearLocalStorage()">Log out</button>

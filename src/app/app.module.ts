@@ -8,10 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
+import { CartModule } from './cart/cart.module';
 import { AuthComponent } from './auth/auth.component';
 import { StoreComponent } from './store/store.component';
 
-const routes: Routes =[
+const routes: Routes = [
   { path: 'login', component: AuthComponent, },
   { path: 'store', component: StoreComponent, },
   { path: '', redirectTo: 'login', pathMatch: 'full', },
@@ -28,6 +29,7 @@ const routes: Routes =[
     SharedModule,
     AuthModule,
     StoreModule,
+    CartModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

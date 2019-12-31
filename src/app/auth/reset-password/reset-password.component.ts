@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalService } from '../../services/local.service';
 
 interface IUser {
   email: string;
@@ -11,11 +12,15 @@ interface IUser {
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
+  providers: [LocalService],
 })
 export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
 
-  constructor(private router: Router) {
+  constructor(
+    private localService: LocalService,
+    private router: Router,
+  ) {
     this.resetPasswordForm = new FormGroup({
       newPassword: new FormControl('', {
         validators: [
@@ -47,9 +52,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public updatePassword(): void {
-    const oldUserInfo: IUser = JSON.parse(localStorage.getItem('user'));
+    const oldUserInfo: IUser = this.localService.getStorage('user');
     oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
-    localStorage.setItem('user', JSON.stringify(oldUserInfo));
+    this.localService.setStorage('user', oldUserInfo);
   }
 
 }

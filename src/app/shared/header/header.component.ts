@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalService } from '../../services/local.service';
 
 interface IUser {
   email: string;
@@ -10,22 +11,27 @@ interface IUser {
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  providers: [LocalService],
 })
 export class HeaderComponent implements OnInit {
-  public isLoggedIn: boolean = true;
-  public user: IUser = this.getLocalStorage();
+  public isLoggedIn = true;
+  public user: IUser = this.localService.getStorage('user');
 
-  constructor(private router: Router) { }
+  constructor(
+    private localService: LocalService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
   public getLocalStorage(): IUser {
-    return this.user = JSON.parse(localStorage.getItem('user'));
+    return this.user = this.localService.getStorage('user');
   }
 
   public clearLocalStorage(): void {
-    localStorage.removeItem('user');
+    this.localService.removeStorage();
+    this.isLoggedIn = false;
     this.navigateToLogin();
   }
 
