@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
 
@@ -14,6 +14,9 @@ interface IUser {
   providers: [LocalService],
 })
 export class HeaderComponent implements OnInit {
+  @Input() public title: string;
+  @Input() public productsInCartAmoutn: number;
+
   public isLoggedIn = true;
   public user: IUser = this.localService.getStorage('user');
 

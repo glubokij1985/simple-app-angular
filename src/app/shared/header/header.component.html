@@ -1,9 +1,10 @@
-<div class="header-container">
-  <span class="page-name">Store</span>
+<div class="container">
+  <span class="page-name">{{ title }}</span>
   <div class="actions">
     <span class="header-cart">
-      <a routerLink="cart" routerLinkActive="active">
+      <a routerLink="/cart" routerLinkActive="active">
         <mat-icon>shopping_cart</mat-icon>
+        <span class="products-amount" *ngIf="productsInCartAmoutn">{{ productsInCartAmoutn }}</span>
       </a>
     </span>
     <span>{{ user?.email }}</span>

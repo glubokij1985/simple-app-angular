@@ -1,0 +1,25 @@
+.container{
+    max-width: 400px;
+}
+.product-item{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    &:nth-child(odd){
+        background-color: rgba(#816398, .1);
+    }
+}
+.product-name{
+    width: 30%;
+}
+.product-price{
+    color: #816398;
+    width: 30%;
+}
+.btn-holder{
+    text-align: right;
+    flex-grow: 1;
+    .btn{
+        min-width: 105px;
+    }
+}

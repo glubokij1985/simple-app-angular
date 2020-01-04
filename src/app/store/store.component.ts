@@ -1,15 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ProductsService } from '../services/products.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss'],
+  providers: [
+    ProductsService,
+    CartService,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreComponent implements OnInit {
+  public title = 'Store';
+  public productsInStore: any[];
+  public productsInCart: any[];
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService,
+    private cartService: CartService,
+  ) {
+    this.productsInStore = this.productsService.productsList;
+    this.productsInCart = this.cartService.products ? this.cartService.products : [];
+  }
 
   ngOnInit() {
+  }
+
+  public addToCart(product: object): object {
+    if (this.isInCart(product)) {
+      return;
+    }
+    this.cartService.products.push(product);
+
+    return product;
+  }
+
+  public isInCart(product: object): boolean {
+    console.log(333);
+    return this.productsInCart.includes(product);
   }
 
 }
