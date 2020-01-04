@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
+import { LocalService } from '../services/local.service';
 
 @Component({
   selector: 'app-store',
@@ -9,6 +10,7 @@ import { CartService } from '../services/cart.service';
   providers: [
     ProductsService,
     CartService,
+    LocalService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -20,6 +22,7 @@ export class StoreComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
+    private localService: LocalService,
   ) {
     this.productsInStore = this.productsService.productsList;
     this.productsInCart = this.cartService.products ? this.cartService.products : [];
@@ -33,6 +36,7 @@ export class StoreComponent implements OnInit {
       return;
     }
     this.cartService.products.push(product);
+    this.localService.setStorage('productsInCart', this.cartService.products);
 
     return product;
   }

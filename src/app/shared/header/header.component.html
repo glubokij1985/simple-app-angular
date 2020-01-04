@@ -4,7 +4,7 @@
     <span class="header-cart">
       <a routerLink="/cart" routerLinkActive="active">
         <mat-icon>shopping_cart</mat-icon>
-        <span class="products-amount" *ngIf="productsInCartAmoutn">{{ productsInCartAmoutn }}</span>
+        <span class="products-amount" *ngIf="productsInCart?.length">{{ productsInCart?.length }}</span>
       </a>
     </span>
     <span>{{ user?.email }}</span>

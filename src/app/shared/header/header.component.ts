@@ -15,7 +15,7 @@ interface IUser {
 })
 export class HeaderComponent implements OnInit {
   @Input() public title: string;
-  @Input() public productsInCartAmoutn: number;
+  @Input() public productsInCart: any[];
 
   public isLoggedIn = true;
   public user: IUser = this.localService.getStorage('user');
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public clearLocalStorage(): void {
-    this.localService.removeStorage();
+    this.localService.removeStorage('user');
     this.isLoggedIn = false;
     this.navigateToLogin();
   }
