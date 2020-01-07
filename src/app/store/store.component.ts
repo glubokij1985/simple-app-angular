@@ -22,27 +22,23 @@ export class StoreComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
-    private localService: LocalService,
   ) {
     this.productsInStore = this.productsService.productsList;
     this.productsInCart = this.cartService.products ? this.cartService.products : [];
   }
 
   ngOnInit() {
+    // this.productsService.productsList.forEach((item) => {
+    //   return this.isInCart(item);
+    // });
   }
 
-  public addToCart(product: object): object {
-    if (this.isInCart(product)) {
-      return;
-    }
-    this.cartService.products.push(product);
-    this.localService.setStorage('productsInCart', this.cartService.products);
-
-    return product;
+  public addToCart(product: object) {
+    this.cartService.addToCart(product);
   }
 
   public isInCart(product: object): boolean {
-    return this.productsInCart.includes(product);
+    return this.cartService.isInCart(product);
   }
 
 }

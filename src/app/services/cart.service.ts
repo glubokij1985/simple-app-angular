@@ -5,14 +5,24 @@ import { LocalService } from './local.service';
 export class CartService {
   public products: any[] = [];
 
-  constructor(private localServicve: LocalService) { }
+  constructor(private localService: LocalService) { }
 
   public getProductsInCart() {
-    this.products = this.localServicve.getStorage('productsInCart');
+    this.products = this.localService.getStorage('productsInCart');
   }
 
-  public setProductsInCart() {
-    this.products = this.localServicve.getStorage('productsInCart') ? this.localServicve.getStorage('productsInCart') : [];
+  public addToCart(product: object): object {
+    if (this.isInCart(product)) {
+      return;
+    }
+    this.products.push(product);
+    this.localService.setStorage('productsInCart', this.products);
+
+    return product;
+  }
+
+  public isInCart(product: object): boolean {
+    return this.products.includes(product);
   }
 
 }
