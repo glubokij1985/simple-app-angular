@@ -1,4 +1,5 @@
 .container{
+    padding: 15px;
     max-width: 400px;
 }
 .product-item{
@@ -7,6 +8,12 @@
     padding: 5px;
     &:nth-child(odd){
         background-color: rgba(#816398, .1);
+    }
+    &.total-item{
+        justify-content: space-between;
+        .product-price{
+            width: auto;
+        }
     }
 }
 .product-name{
@@ -22,5 +29,13 @@
     .remove-icon{
         min-width: 105px;
         cursor: pointer;
+        color: #ff0000;
+    }
+}
+.inner-container{
+    .btn{
+        min-width: 105px;
+        margin: 15px auto;
+        display: block;
     }
 }

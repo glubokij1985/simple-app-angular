@@ -42,7 +42,6 @@ export class StoreComponent implements OnInit {
   }
 
   public isInCart(product: object): boolean {
-    console.log(333);
     return this.productsInCart.includes(product);
   }
 
