@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { CartModule } from './cart/cart.module';
+import { CartService } from './services/cart.service';
+import { LocalService } from './services/local.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { CartModule } from './cart/cart.module';
     StoreModule,
     CartModule,
   ],
-  providers: [],
+  providers: [
+    CartService,
+    LocalService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

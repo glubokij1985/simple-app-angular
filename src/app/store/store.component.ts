@@ -9,22 +9,22 @@ import { LocalService } from '../services/local.service';
   styleUrls: ['./store.component.scss'],
   providers: [
     ProductsService,
-    CartService,
-    LocalService,
+    // CartService,
+    // LocalService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreComponent implements OnInit {
   public title = 'Store';
   public productsInStore: any[];
-  public productsInCart: any[];
+  public productsInCart: any[] = this.cartService.products;
 
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
   ) {
     this.productsInStore = this.productsService.productsList;
-    this.productsInCart = this.cartService.products ? this.cartService.products : [];
+    // this.productsInCart = this.cartService.products ? this.cartService.products : [];
   }
 
   ngOnInit() {
@@ -37,8 +37,8 @@ export class StoreComponent implements OnInit {
     this.cartService.addToCart(product);
   }
 
-  public isInCart(product: object): boolean {
-    return this.cartService.isInCart(product);
-  }
+  // public isInCart(product: object): boolean {
+  //   return this.cartService.isInCart(product);
+  // }
 
 }
