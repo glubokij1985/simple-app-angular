@@ -4,35 +4,35 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class CartService {
-  public products: [];
-  public dataChange: BehaviorSubject<[]>;
+  public products$: BehaviorSubject<[]> = new BehaviorSubject([]);
+
+  public get products(): [] {
+    return this.products$.getValue();
+  }
+
+  private readonly LOCAL_STORAGE_KEY = 'productsInCart';
 
   constructor(private localService: LocalService) {
-    this.dataChange = new BehaviorSubject([]);
+    const productsInCart = this.localService.getStorage(this.LOCAL_STORAGE_KEY) || [];
+
+    this.products$.next(productsInCart);
+
+    this.products$.subscribe(products => {
+      this.localService.setStorage(this.LOCAL_STORAGE_KEY, products);
+    });
   }
 
   // public watchLocalStorage(): BehaviorSubject<[]> {
   //   return this.products.asObservable();
   // }
 
-  public getProductsInCart(): void {
-    this.localService.getStorage('productsInCart').subscribe((items) => {
-      this.products = items;
-      this.dataChange.next(items);
-    });
-  }
-
   public addToCart(product: object): void {
-    const productsInCart = this.localService.getStorage('productsInCart') ? this.localService.getStorage('productsInCart') : [];
-    productsInCart.push(product);
-    this.localService.setStorage('productsInCart', productsInCart);
-    this.dataChange.next(productsInCart);
+    this.products$.next([...this.products, product] as []);
   }
 
-  // public removeItem(key: string) {
-  //   this.localService.removeStorage(key);
-  //   this.products.next(this.localService.getStorage(key));
-  // }
+  public clear() {
+    this.products$.next([]);
+  }
 
 
 
