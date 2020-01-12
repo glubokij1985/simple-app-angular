@@ -1,54 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../services/local.service';
+import { CartService } from '../services/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
-  providers: [LocalService],
 })
 export class CartComponent implements OnInit {
   public title = 'Cart';
-  public productsInCart: any[];
-  public totalPrice: any;
+  public totalPrice: number;
+  public productsInCart: [];
+  public subscription: Subscription;
 
-  constructor(private localService: LocalService) {
-    this.productsInCart = this.localService.getStorage('productsInCart') ? this.localService.getStorage('productsInCart') : [];
-    this.getTotalPrice();
-  }
+  constructor(
+    private localService: LocalService,
+    private cartService: CartService,
+  ) { }
 
   ngOnInit() {
+    this.subscription = this.cartService.products$
+      .subscribe(products => this.productsInCart = products);
+
+    this.totalPrice = this.getTotalPrice();
   }
 
-  public removeFromCart(product: object, index: number): object {
-    const productsInCart = this.localService.getStorage('productsInCart');
-
-    productsInCart.splice(index, 1);
-    this.productsInCart = productsInCart;
-    this.localService.setStorage('productsInCart', productsInCart);
-
-    if (productsInCart.length === 0) {
-      this.localService.removeStorage('productsInCart');
-    }
-
-    this.getTotalPrice();
-
-    return product;
+  public removeFromCart(product: object, index: number): void {
+    this.cartService.removeProductFromCart(product, index);
+    // this.getTotalPrice();
   }
 
   public clearCart(): void {
-    this.localService.removeStorage('productsInCart');
-    this.productsInCart = [];
-    this.getTotalPrice();
+    this.cartService.clear();
+    // this.getTotalPrice();
   }
 
   public getTotalPrice(): number {
-    const pricesInCart: number[] = this.productsInCart.map((item) => {
-      return item.price;
-    });
-    return this.totalPrice = pricesInCart.reduce((sum, current) => {
-      return sum + current;
-    }, 0);
+    return this.cartService.totalPriceValue;
   }
 
 }

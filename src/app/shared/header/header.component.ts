@@ -11,7 +11,6 @@ interface IUser {
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [LocalService],
 })
 export class HeaderComponent implements OnInit {
   @Input() public title: string;
