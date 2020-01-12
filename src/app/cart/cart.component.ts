@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalService } from '../services/local.service';
 import { CartService } from '../services/cart.service';
 import { Subscription } from 'rxjs';
+import { IProduct } from '../models/product.interface';
 
 @Component({
   selector: 'app-cart',
@@ -11,13 +11,10 @@ import { Subscription } from 'rxjs';
 export class CartComponent implements OnInit {
   public title = 'Cart';
   public totalPrice: number;
-  public productsInCart: [];
+  public productsInCart: IProduct[];
   public subscription: Subscription;
 
-  constructor(
-    private localService: LocalService,
-    private cartService: CartService,
-  ) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
     this.subscription = this.cartService.products$
@@ -29,15 +26,15 @@ export class CartComponent implements OnInit {
       });
   }
 
-  public removeFromCart(product: object, index: number): void {
-    this.cartService.removeProductFromCart(product, index);
+  public removeFromCart(index: number): void {
+    this.cartService.removeProductFromCart(index);
   }
 
   public clearCart(): void {
     this.cartService.clear();
   }
 
-  public getTotalPrice(products: []) {
+  public getTotalPrice(products: IProduct[]) {
     const pricesInCart: number[] = products.map((item) => {
       return item.price;
     });

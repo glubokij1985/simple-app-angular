@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
-
-interface IUser {
-  email: string;
-  password: string;
-}
+import { IUser } from '../../models/user.interface';
+import { USER_KEY } from '../../constants/local-storage-keys.const';
 
 @Component({
   selector: 'app-reset-password',
@@ -52,9 +49,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public updatePassword(): void {
-    const oldUserInfo: IUser = this.localService.getStorage('user');
+    const oldUserInfo: IUser = this.localService.getStorage(USER_KEY);
     oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
-    this.localService.setStorage('user', oldUserInfo);
+    this.localService.setStorage(USER_KEY, oldUserInfo);
   }
 
 }

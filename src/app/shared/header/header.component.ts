@@ -1,11 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalService } from '../../services/local.service';
-
-interface IUser {
-  email: string;
-  password: string;
-}
+import { CartService } from '../../services/cart.service';
+import { IUser } from '../../models/user.interface';
+import { USER_KEY } from '../../constants/local-storage-keys.const';
 
 @Component({
   selector: 'app-header',
@@ -17,10 +15,11 @@ export class HeaderComponent implements OnInit {
   @Input() public productsInCart: any[];
 
   public isLoggedIn = true;
-  public user: IUser = this.localService.getStorage('user');
+  public user: IUser = this.localService.getStorage(USER_KEY);
 
   constructor(
     private localService: LocalService,
+    private cartService: CartService,
     private router: Router,
   ) { }
 
@@ -28,11 +27,12 @@ export class HeaderComponent implements OnInit {
   }
 
   public getLocalStorage(): IUser {
-    return this.user = this.localService.getStorage('user');
+    return this.user = this.localService.getStorage(USER_KEY);
   }
 
-  public clearLocalStorage(): void {
-    this.localService.removeStorage('user');
+  public logOut(): void {
+    this.localService.removeStorage(USER_KEY);
+    this.cartService.clear();
     this.isLoggedIn = false;
     this.navigateToLogin();
   }

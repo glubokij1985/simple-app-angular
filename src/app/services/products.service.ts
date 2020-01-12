@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { IProduct } from '../models/product.interface';
 
 @Injectable()
 export class ProductsService {
-  public productsList: any = [
+  public productsList: IProduct[] = [
     {
       name: 'Product 1',
       price: 10.3,

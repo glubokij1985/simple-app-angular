@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import { Subscription } from 'rxjs';
+import { IProduct } from '../models/product.interface';
 
 @Component({
   selector: 'app-store',
@@ -14,8 +15,8 @@ import { Subscription } from 'rxjs';
 })
 export class StoreComponent implements OnInit {
   public title = 'Store';
-  public productsInStore: any[];
-  public productsInCart: any;
+  public productsInStore: IProduct[];
+  public productsInCart: IProduct[];
   public subscription: Subscription;
 
   constructor(
@@ -34,11 +35,11 @@ export class StoreComponent implements OnInit {
     });
   }
 
-  public addToCart(product: object) {
+  public addToCart(product: IProduct) {
     this.cartService.addToCart(product);
   }
 
-  public isInCart(product: object): boolean {
+  public isInCart(product: IProduct): boolean {
     return this.cartService.isInCart(product);
   }
 

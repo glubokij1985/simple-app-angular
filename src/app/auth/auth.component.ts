@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalService } from '../services/local.service';
+import { USER_KEY } from '../constants/local-storage-keys.const';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +17,7 @@ export class AuthComponent implements OnInit {
     private localService: LocalService,
     private router: Router,
   ) {
-    if (this.localService.getStorage('user')) {
+    if (this.localService.getStorage(USER_KEY)) {
       this.router.navigate(['store']);
     }
 
@@ -36,15 +37,15 @@ export class AuthComponent implements OnInit {
   }
 
   public submit(): void {
-    this.localService.setStorage('user', this.loginForm.value);
+    this.localService.setStorage(USER_KEY, this.loginForm.value);
     this.router.navigate(['store']);
   }
 
   public goToResetPassword(): void {
     if (this.loginForm.get('email').valid) {
     // if (this.loginForm.get('email').valid &&
-    // (this.localServise.getStorage('user') &&
-    // this.loginForm.get('email').value === JSON.parse(this.localService.getStorage('user')).email)) {
+    // (this.localServise.getStorage(USER_KEY) &&
+    // this.loginForm.get('email').value === JSON.parse(this.localService.getStorage(USER_KEY)).email)) {
       this.router.navigate(['reset-password']);
     } else {
       this.loginForm.get('email').markAsTouched();

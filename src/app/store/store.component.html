@@ -1,9 +1,5 @@
 <app-header [title]="title" [productsInCart]="productsInCart"></app-header>
 <div class="container">
-  <p>
-    store works!
-    If user not logged id - redirect to login page. (use Auth Guard)
-  </p>
   <div class="product-list">
     <div class="product-item" *ngFor="let product of productsInStore; let i = index;">
       <span class="product-name">{{ product?.name }}</span>

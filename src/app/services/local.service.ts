@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// interface IUser {
-//     email: string;
-//     password: string;
-// }
-
 @Injectable()
 export class LocalService {
 

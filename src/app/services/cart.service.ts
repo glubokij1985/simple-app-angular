@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
 import { LocalService } from './local.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IProduct } from '../models/product.interface';
+import { PRODUCTS_IN_CART_KEY } from '../constants/local-storage-keys.const';
 
 @Injectable()
 export class CartService {
-  // public totalPriceValue: number;
-  private _products$: BehaviorSubject<[]>;
+  private _products$: BehaviorSubject<IProduct[]>;
 
-  private get products(): [] {
+  private get products(): IProduct[] {
     return this._products$.getValue();
   }
 
-  private readonly LOCAL_STORAGE_KEY = 'productsInCart';
-
   constructor(private localService: LocalService) {
-    const productsInCart = this.localService.getStorage(this.LOCAL_STORAGE_KEY) || [];
+    const productsInCart = this.localService.getStorage(PRODUCTS_IN_CART_KEY) || [];
 
     this._products$ = new BehaviorSubject(productsInCart);
 
     this._products$.subscribe(products => {
-      this.localService.setStorage(this.LOCAL_STORAGE_KEY, products);
+      this.localService.setStorage(PRODUCTS_IN_CART_KEY, products);
     });
   }
 
-  public get products$(): Observable<[]> {
+  public get products$(): Observable<IProduct[]> {
     return this._products$.asObservable();
   }
 
-  public productsInCart(): [] {
+  public productsInCart(): IProduct[] {
     return this.products;
   }
 
-  public addToCart(product: object): void {
+  public addToCart(product: IProduct): void {
     if (this.isInCart(product)) {
       return;
     }
@@ -39,7 +38,7 @@ export class CartService {
     this._products$.next([...this.products, product] as []);
   }
 
-  public removeProductFromCart(product: object, index: number): void {
+  public removeProductFromCart(index: number): void {
     const productsInCart = this.productsInCart();
 
     productsInCart.splice(index, 1);
@@ -50,7 +49,7 @@ export class CartService {
     this._products$.next([]);
   }
 
-  public isInCart(product: object): boolean {
+  public isInCart(product: IProduct): boolean {
     return this.products.includes(product);
   }
 
