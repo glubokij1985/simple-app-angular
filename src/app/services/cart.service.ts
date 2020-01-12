@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class CartService {
-  public totalPriceValue: number;
+  // public totalPriceValue: number;
   private _products$: BehaviorSubject<[]>;
 
   private get products(): [] {
@@ -20,21 +20,11 @@ export class CartService {
 
     this._products$.subscribe(products => {
       this.localService.setStorage(this.LOCAL_STORAGE_KEY, products);
-      this.totalPrice = products;
     });
   }
 
   public get products$(): Observable<[]> {
     return this._products$.asObservable();
-  }
-
-  public set totalPrice(products: []) {
-    const pricesInCart: number[] = products.map((item) => {
-      return item.price;
-    });
-    this.totalPriceValue = pricesInCart.reduce((sum, current) => {
-      return sum + current;
-    }, 0);
   }
 
   public productsInCart(): [] {

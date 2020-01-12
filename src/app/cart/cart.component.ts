@@ -23,21 +23,27 @@ export class CartComponent implements OnInit {
     this.subscription = this.cartService.products$
       .subscribe(products => this.productsInCart = products);
 
-    this.totalPrice = this.getTotalPrice();
+    this.cartService.products$
+      .subscribe(products => {
+        this.getTotalPrice(products);
+      });
   }
 
   public removeFromCart(product: object, index: number): void {
     this.cartService.removeProductFromCart(product, index);
-    // this.getTotalPrice();
   }
 
   public clearCart(): void {
     this.cartService.clear();
-    // this.getTotalPrice();
   }
 
-  public getTotalPrice(): number {
-    return this.cartService.totalPriceValue;
+  public getTotalPrice(products: []) {
+    const pricesInCart: number[] = products.map((item) => {
+      return item.price;
+    });
+    this.totalPrice = pricesInCart.reduce((sum, current) => {
+      return sum + current;
+    }, 0);
   }
 
 }

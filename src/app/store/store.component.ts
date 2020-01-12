@@ -28,6 +28,10 @@ export class StoreComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.cartService.products$
       .subscribe(products => this.productsInCart = products);
+
+    this.productsService.productsList.forEach((item) => {
+      return this.isInCart(item);
+    });
   }
 
   public addToCart(product: object) {
