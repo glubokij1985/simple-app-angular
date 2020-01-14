@@ -12,6 +12,8 @@ import { StoreModule } from './store/store.module';
 import { CartModule } from './cart/cart.module';
 import { CartService } from './services/cart.service';
 import { LocalService } from './services/local.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { LocalService } from './services/local.service';
   providers: [
     CartService,
     LocalService,
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })

@@ -50,7 +50,7 @@ export class CartService {
   }
 
   public isInCart(product: IProduct): boolean {
-    return this.products.includes(product);
+    return this.products.some(item => item.id === product.id);
   }
 
 }
