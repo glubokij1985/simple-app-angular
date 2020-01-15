@@ -45,13 +45,15 @@ export class ResetPasswordComponent implements OnInit {
 
   public submit(): void {
     this.updatePassword();
-    this.router.navigate(['login']);
+    this.router.navigate(['store']);
   }
 
   public updatePassword(): void {
-    const oldUserInfo: IUser = this.localService.getStorage(USER_KEY);
-    oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
-    this.localService.setStorage(USER_KEY, oldUserInfo);
+    if (this.isMatched()) {
+      const oldUserInfo: IUser = this.localService.getStorage(USER_KEY);
+      oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
+      this.localService.setStorage(USER_KEY, oldUserInfo);
+    }
   }
 
 }
