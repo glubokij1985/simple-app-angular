@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ProductsService } from '../services/products.service';
-import { CartService } from '../services/cart.service';
-import { Subscription } from 'rxjs';
+import { ProductsService } from './services/products.service';
+import { CartService } from '../cart/services/cart.service';
 import { IProduct } from '../models/product.interface';
 
 @Component({
@@ -16,8 +15,7 @@ import { IProduct } from '../models/product.interface';
 export class StoreComponent implements OnInit {
   public title = 'Store';
   public productsInStore: IProduct[];
-  public productsInCart: IProduct[];
-  public subscription: Subscription;
+  public readonly products$ = this.cartService.products$;
 
   constructor(
     private productsService: ProductsService,
@@ -27,9 +25,6 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.cartService.products$
-      .subscribe(products => this.productsInCart = products);
-
     this.productsService.productsList.forEach((item) => {
       return this.isInCart(item);
     });

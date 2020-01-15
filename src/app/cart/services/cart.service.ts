@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { LocalService } from './local.service';
+import { LocalService } from '../../core/storage/local.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IProduct } from '../models/product.interface';
-import { PRODUCTS_IN_CART_KEY } from '../constants/local-storage-keys.const';
+import { IProduct } from '../../models/product.interface';
+import { PRODUCTS_IN_CART_KEY } from '../../core/storage/local-storage-keys.const';
 
 @Injectable()
 export class CartService {
@@ -26,10 +26,6 @@ export class CartService {
     return this._products$.asObservable();
   }
 
-  public productsInCart(): IProduct[] {
-    return this.products;
-  }
-
   public addToCart(product: IProduct): void {
     if (this.isInCart(product)) {
       return;
@@ -39,7 +35,7 @@ export class CartService {
   }
 
   public removeProductFromCart(index: number): void {
-    const productsInCart = this.productsInCart();
+    const productsInCart = this.products;
 
     productsInCart.splice(index, 1);
     this._products$.next(productsInCart);

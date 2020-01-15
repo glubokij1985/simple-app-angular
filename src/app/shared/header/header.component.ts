@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalService } from '../../services/local.service';
-import { CartService } from '../../services/cart.service';
+import { LocalService } from '../../core/storage/local.service';
+import { CartService } from '../../cart/services/cart.service';
 import { IUser } from '../../models/user.interface';
-import { USER_KEY } from '../../constants/local-storage-keys.const';
+import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 
 @Component({
   selector: 'app-header',

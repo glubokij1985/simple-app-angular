@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalService } from '../../services/local.service';
+import { LocalService } from '../../core/storage/local.service';
 import { IUser } from '../../models/user.interface';
-import { USER_KEY } from '../../constants/local-storage-keys.const';
+import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 
 @Component({
   selector: 'app-reset-password',

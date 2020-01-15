@@ -1,4 +1,4 @@
-<app-header [title]="title" [productsInCart]="productsInCart"></app-header>
+<app-header [title]="title" [productsInCart]="products$ | async"></app-header>
 <div class="container">
   <div class="product-list">
     <div class="product-item" *ngFor="let product of productsInStore; let i = index;">

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalService } from '../services/local.service';
-import { USER_KEY } from '../constants/local-storage-keys.const';
+import { LocalService } from '../core/storage/local.service';
+import { USER_KEY } from '../core/storage/local-storage-keys.const';
 
 @Component({
   selector: 'app-auth',

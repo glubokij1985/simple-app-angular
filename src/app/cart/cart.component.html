@@ -10,7 +10,7 @@
       <span class="product-name">{{ product?.name }}</span>
       <span class="product-price">{{ product?.price }}</span>
       <span class="btn-holder">
-        <mat-icon class="remove-icon" (click)="removeFromCart(product, i)">remove_circle</mat-icon>
+        <mat-icon class="remove-icon" (click)="removeFromCart(i)">remove_circle</mat-icon>
       </span>
     </div>
     <div class="product-item total-item" *ngIf="productsInCart.length > 0">
