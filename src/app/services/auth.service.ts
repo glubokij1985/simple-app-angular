@@ -4,10 +4,11 @@ import { USER_KEY } from '../constants/local-storage-keys.const';
 
 @Injectable()
 export class AuthService {
-  public isLoggedIn = false;
 
-  constructor(private localService: LocalService) {
-    this.isLoggedIn = this.localService.getStorage(USER_KEY) || false;
+  constructor(private localService: LocalService) { }
+
+  public isLoggedIn(): boolean {
+    return this.localService.getStorage(USER_KEY) || false;
   }
 
 }

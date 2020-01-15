@@ -13,7 +13,7 @@ import { CartModule } from './cart/cart.module';
 import { CartService } from './services/cart.service';
 import { LocalService } from './services/local.service';
 import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { AuthGuard } from './guards/auth.guard';
     CartService,
     LocalService,
     AuthService,
-    AuthGuard,
+    AuthGuardService,
   ],
   bootstrap: [AppComponent],
 })
