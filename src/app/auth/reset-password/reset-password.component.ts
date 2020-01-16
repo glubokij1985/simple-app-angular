@@ -27,7 +27,6 @@ export class ResetPasswordComponent implements OnInit {
         updateOn: 'submit',
       }),
       repeatPassword: new FormControl('', {
-        validators: Validators.required,
         updateOn: 'submit',
       }),
     }, [this.isMatched]);
@@ -44,15 +43,26 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public submit(): void {
-    this.updatePassword();
-    this.router.navigate(['store']);
+    if (this.updatePassword()) {
+      this.router.navigate(['store']);
+    }
   }
 
-  public updatePassword(): void {
-    if (this.isMatched()) {
+  public updatePassword(): boolean {
+    const newPassword: string = this.resetPasswordForm.get('newPassword').value;
+    const repeatPassword: string = this.resetPasswordForm.get('repeatPassword').value;
+
+    // if (this.isMatched(this.resetPasswordForm)) {
+    if (newPassword === repeatPassword) {
       const oldUserInfo: IUser = this.localService.getStorage(USER_KEY);
       oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
       this.localService.setStorage(USER_KEY, oldUserInfo);
+
+      return true;
+    } else {
+      this.resetPasswordForm.markAllAsTouched();
+
+      return false;
     }
   }
 
