@@ -43,8 +43,8 @@ export class AuthComponent implements OnInit {
 
   public goToResetPassword(): void {
     if (this.loginForm.get('email').valid) {
-      this.localService.setStorage(USER_KEY, this.loginForm.value);
-      this.router.navigate(['reset-password']);
+      const emailValue = this.loginForm.get('email').value;
+      this.router.navigate(['reset-password'], { queryParams: { email: emailValue } });
     } else {
       this.loginForm.get('email').markAsTouched();
     }

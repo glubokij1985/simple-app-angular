@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LocalService } from '../../core/storage/local.service';
 import { IUser } from '../../models/user.interface';
 import { USER_KEY } from '../../core/storage/local-storage-keys.const';
@@ -13,10 +13,12 @@ import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 })
 export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
+  public emailValue: string;
 
   constructor(
     private localService: LocalService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.resetPasswordForm = new FormGroup({
       newPassword: new FormControl('', {
@@ -33,6 +35,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.emailValue = params.email;
+    });
   }
 
   public isMatched(form: AbstractControl): ValidationErrors | null {
@@ -50,11 +55,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public updatePassword(): void {
-    // const newPassword: string = this.resetPasswordForm.get('newPassword').value;
-    // const repeatPassword: string = this.resetPasswordForm.get('repeatPassword').value;
-    // const oldUserInfo: IUser = this.localService.getStorage(USER_KEY);
-    // oldUserInfo.password = this.resetPasswordForm.value.repeatPassword;
-    // this.localService.setStorage(USER_KEY, oldUserInfo);
+    const newUser: IUser = {
+      email: this.emailValue,
+      password: this.resetPasswordForm.get('repeatPassword').value,
+    };
+    this.localService.setStorage(USER_KEY, newUser);
   }
 
 }
