@@ -14,6 +14,7 @@ import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
   public emailValue: string;
+  public submitted = false;
 
   constructor(
     private localService: LocalService,
@@ -29,6 +30,9 @@ export class ResetPasswordComponent implements OnInit {
         updateOn: 'submit',
       }),
       repeatPassword: new FormControl('', {
+        validators: [
+          Validators.required,
+        ],
         updateOn: 'submit',
       }),
     }, [this.isMatched]);
@@ -48,6 +52,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public submit(): void {
+    this.submitted = true;
     if (this.resetPasswordForm.valid) {
       this.updatePassword();
       this.router.navigate(['store']);
