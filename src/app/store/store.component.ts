@@ -7,9 +7,7 @@ import { IProduct } from '../models/product.interface';
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss'],
-  providers: [
-    ProductsService,
-  ],
+  providers: [ProductsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreComponent implements OnInit {
@@ -37,5 +35,4 @@ export class StoreComponent implements OnInit {
   public isInCart(product: IProduct): boolean {
     return this.cartService.isInCart(product);
   }
-
 }

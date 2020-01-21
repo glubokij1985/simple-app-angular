@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LocalService } from '../../core/storage/local.service';
 import { IUser } from '../../models/user.interface';
-import { USER_KEY } from '../../core/storage/local-storage-keys.const';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
-  providers: [LocalService],
 })
 export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;
@@ -17,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   public submitted = false;
 
   constructor(
-    private localService: LocalService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
@@ -64,7 +62,7 @@ export class ResetPasswordComponent implements OnInit {
       email: this.emailValue,
       password: this.resetPasswordForm.get('repeatPassword').value,
     };
-    this.localService.setStorage(USER_KEY, newUser);
+    this.authService.login(newUser);
   }
 
 }

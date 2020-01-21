@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalService } from '../core/storage/local.service';
-import { USER_KEY } from '../core/storage/local-storage-keys.const';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  providers: [LocalService],
 })
 export class AuthComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(
-    private localService: LocalService,
+    private authService: AuthService,
     private router: Router,
   ) {
-    if (this.localService.getStorage(USER_KEY)) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['store']);
     }
 
@@ -37,7 +35,7 @@ export class AuthComponent implements OnInit {
   }
 
   public submit(): void {
-    this.localService.setStorage(USER_KEY, this.loginForm.value);
+    this.authService.login(this.loginForm.value);
     this.router.navigate(['store']);
   }
 
@@ -49,5 +47,4 @@ export class AuthComponent implements OnInit {
       this.loginForm.get('email').markAsTouched();
     }
   }
-
 }
