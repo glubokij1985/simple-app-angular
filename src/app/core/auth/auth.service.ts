@@ -14,4 +14,8 @@ export class AuthService {
   public login(user: IUser) {
     this.localService.setStorage(USER_KEY, user);
   }
+
+  public logout(): void {
+    this.localService.removeStorage(USER_KEY);
+  }
 }

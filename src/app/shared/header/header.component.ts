@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { LocalService } from '../../core/storage/local.service';
 import { CartService } from '../../cart/services/cart.service';
 import { IUser } from '../../models/user.interface';
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public user: IUser = this.localService.getStorage(USER_KEY);
 
   constructor(
+    private authService: AuthService,
     private localService: LocalService,
     private cartService: CartService,
     private router: Router,
@@ -26,19 +28,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getLocalStorage(): IUser {
-    return this.user = this.localService.getStorage(USER_KEY);
-  }
-
-  public logOut(): void {
-    this.localService.removeStorage(USER_KEY);
+  public logout(): void {
+    this.authService.logout();
     this.cartService.clear();
     this.isLoggedIn = false;
-    this.navigateToLogin();
-  }
-
-  public navigateToLogin(): void {
     this.router.navigate(['login']);
   }
-
 }
