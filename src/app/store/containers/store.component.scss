@@ -1,0 +1,10 @@
+.container{
+    max-width: 400px;
+    padding-top: 15px;
+}
+app-product-item{
+    display: block;
+    &:nth-child(odd){
+        background-color: rgba(#816398, .1);
+    }
+}

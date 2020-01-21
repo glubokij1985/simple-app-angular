@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from './auth.component';
+import { AuthComponent } from './containers/login/auth.component';
 import { SharedModule } from '../shared/shared.module';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordComponent } from './containers/reset-password/reset-password.component';
 
 
 @NgModule({

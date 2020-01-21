@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ProductsService } from './services/products.service';
-import { CartService } from '../cart/services/cart.service';
-import { IProduct } from '../models/product.interface';
+import { ProductsService } from '../services/products.service';
+import { CartService } from '../../cart/services/cart.service';
+import { IProduct } from '../../models/product.interface';
 
 @Component({
   selector: 'app-store',
@@ -28,11 +28,8 @@ export class StoreComponent implements OnInit {
     });
   }
 
-  public addToCart(product: IProduct) {
-    this.cartService.addToCart(product);
-  }
-
   public isInCart(product: IProduct): boolean {
+    console.log(111);
     return this.cartService.isInCart(product);
   }
 }

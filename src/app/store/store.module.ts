@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { StoreComponent } from './store.component';
 import { SharedModule } from '../shared/shared.module';
+import { StoreComponent } from './containers/store.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,9 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     SharedModule,
   ],
-  declarations: [StoreComponent]
+  declarations: [
+    StoreComponent,
+    ProductItemComponent,
+  ]
 })
 export class StoreModule { }

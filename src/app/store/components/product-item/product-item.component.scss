@@ -1,14 +1,7 @@
-.container{
-    max-width: 400px;
-    padding-top: 15px;
-}
 .product-item{
     display: flex;
     align-items: center;
     padding: 5px;
-    &:nth-child(odd){
-        background-color: rgba(#816398, .1);
-    }
 }
 .product-name{
     width: 30%;
