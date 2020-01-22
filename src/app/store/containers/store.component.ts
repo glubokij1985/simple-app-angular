@@ -29,7 +29,6 @@ export class StoreComponent implements OnInit {
   }
 
   public isInCart(product: IProduct): boolean {
-    console.log(111);
     return this.cartService.isInCart(product);
   }
 }

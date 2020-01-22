@@ -1,0 +1,21 @@
+.product-item{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.product-name{
+    width: 30%;
+}
+.product-price{
+    color: #816398;
+    width: 30%;
+}
+.btn-holder{
+    text-align: right;
+    flex-grow: 1;
+    .remove-icon{
+        min-width: 105px;
+        cursor: pointer;
+        color: #ff0000;
+    }
+}

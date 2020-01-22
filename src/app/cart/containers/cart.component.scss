@@ -2,35 +2,17 @@
     padding: 15px;
     max-width: 400px;
 }
-.product-item{
-    display: flex;
-    align-items: center;
-    padding: 5px;
+app-cart-item{
+    display: block;
     &:nth-child(odd){
         background-color: rgba(#816398, .1);
     }
-    &.total-item{
-        justify-content: space-between;
-        .product-price{
-            width: auto;
-        }
-    }
 }
-.product-name{
-    width: 30%;
-}
-.product-price{
-    color: #816398;
-    width: 30%;
-}
-.btn-holder{
-    text-align: right;
-    flex-grow: 1;
-    .remove-icon{
-        min-width: 105px;
-        cursor: pointer;
-        color: #ff0000;
-    }
+.total-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
 }
 .inner-container{
     .btn{

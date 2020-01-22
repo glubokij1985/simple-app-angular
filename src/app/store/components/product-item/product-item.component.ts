@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { IProduct } from 'src/app/models/product.interface';
 import { CartService } from 'src/app/cart/services/cart.service';
 
@@ -6,6 +6,7 @@ import { CartService } from 'src/app/cart/services/cart.service';
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductItemComponent implements OnInit {
   @Input() public product: IProduct;
@@ -20,7 +21,6 @@ export class ProductItemComponent implements OnInit {
   }
 
   public isInCart(product: IProduct): boolean {
-    console.log(333);
     return this.cartService.isInCart(product);
   }
 }

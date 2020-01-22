@@ -26,10 +26,6 @@ export class CartComponent implements OnInit {
       });
   }
 
-  public removeFromCart(index: number): void {
-    this.cartService.removeProductFromCart(index);
-  }
-
   public clearCart(): void {
     this.cartService.clear();
   }
@@ -42,5 +38,4 @@ export class CartComponent implements OnInit {
       return sum + current;
     }, 0);
   }
-
 }
