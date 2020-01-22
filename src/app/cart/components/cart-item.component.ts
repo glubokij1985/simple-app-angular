@@ -20,7 +20,7 @@ export class CartItemComponent implements OnInit {
       .subscribe(products => this.productsInCart = products);
   }
 
-  public removeFromCart(index: number): void {
-    this.cartService.removeProductFromCart(index);
+  public removeFromCart(id: number): void {
+    this.cartService.removeProductFromCart(id);
   }
 }

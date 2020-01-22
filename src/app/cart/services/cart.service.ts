@@ -34,11 +34,13 @@ export class CartService {
     this._products$.next([...this.products, product] as []);
   }
 
-  public removeProductFromCart(index: number): void {
+  public removeProductFromCart(id: number): void {
     const productsInCart = this.products;
+    const productsAfterRemove = productsInCart.filter(item => {
+      return item.id !== id;
+    });
 
-    productsInCart.splice(index, 1);
-    this._products$.next(productsInCart);
+    this._products$.next(productsAfterRemove);
   }
 
   public clear() {
