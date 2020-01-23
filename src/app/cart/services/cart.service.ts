@@ -13,7 +13,7 @@ export class CartService {
   }
 
   constructor(private localService: LocalService) {
-    const productsInCart = this.localService.getStorage(PRODUCTS_IN_CART_KEY) || [];
+    const productsInCart: IProduct[] = this.localService.getStorage(PRODUCTS_IN_CART_KEY) || [];
 
     this._products$ = new BehaviorSubject(productsInCart);
 

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { LocalService } from '../../core/storage/local.service';
 import { CartService } from '../../cart/services/cart.service';
 import { IUser } from '../../models/user.interface';
+import { IProduct } from '../../models/product.interface';
 import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 
 @Component({
@@ -13,7 +14,7 @@ import { USER_KEY } from '../../core/storage/local-storage-keys.const';
 })
 export class HeaderComponent implements OnInit {
   @Input() public title: string;
-  @Input() public productsInCart: any[];
+  @Input() public productsInCart: IProduct[];
 
   public isLoggedIn = true;
   public user: IUser = this.localService.getStorage(USER_KEY);

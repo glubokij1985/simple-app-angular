@@ -7,7 +7,6 @@ import { IProduct } from '../../models/product.interface';
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss'],
-  providers: [ProductsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoreComponent implements OnInit {
@@ -18,14 +17,10 @@ export class StoreComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
-  ) {
-    this.productsInStore = this.productsService.productsList;
-  }
+  ) { }
 
   ngOnInit() {
-    this.productsService.productsList.forEach((item) => {
-      return this.isInCart(item);
-    });
+    this.productsInStore = this.productsService.productsList;
   }
 
   public isInCart(product: IProduct): boolean {

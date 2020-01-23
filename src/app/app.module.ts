@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 import { CartModule } from './cart/cart.module';
+import { ProductsService } from './store/services/products.service';
 import { CartService } from './cart/services/cart.service';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CartService } from './cart/services/cart.service';
     CartModule,
   ],
   providers: [
+    ProductsService,
     CartService,
   ],
   bootstrap: [AppComponent],

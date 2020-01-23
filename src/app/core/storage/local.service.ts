@@ -5,11 +5,11 @@ export class LocalService {
 
     constructor() { }
 
-    public setStorage(key: string, obj: any) {
+    public setStorage<T>(key: string, obj: T) {
         localStorage.setItem(key, JSON.stringify(obj));
     }
 
-    public getStorage(key: string): any {
+    public getStorage<T>(key: string): T {
         return JSON.parse(localStorage.getItem(key));
     }
 

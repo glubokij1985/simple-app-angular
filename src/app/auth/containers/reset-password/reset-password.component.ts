@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IUser } from '../../../models/user.interface';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -9,16 +11,19 @@ import { AuthService } from '../../../core/auth/auth.service';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
   public resetPasswordForm: FormGroup;
   public emailValue: string;
   public submitted = false;
+  public destroy$: Subject<void> = new Subject();
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.resetPasswordForm = new FormGroup({
       newPassword: new FormControl('', {
         validators: [
@@ -34,12 +39,17 @@ export class ResetPasswordComponent implements OnInit {
         updateOn: 'submit',
       }),
     }, [this.isMatched]);
+
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        this.emailValue = params.email;
+      });
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.emailValue = params.email;
-    });
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public isMatched(form: AbstractControl): ValidationErrors | null {

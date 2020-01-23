@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IProduct } from '../../models/product.interface';
 
 @Component({
@@ -8,22 +9,26 @@ import { IProduct } from '../../models/product.interface';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   public title = 'Cart';
   public totalPrice: number;
   public productsInCart: IProduct[];
-  public subscription: Subscription;
+  public destroy$: Subject<void> = new Subject();
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.subscription = this.cartService.products$
-      .subscribe(products => this.productsInCart = products);
-
     this.cartService.products$
+      .pipe(takeUntil(this.destroy$))
       .subscribe(products => {
+        this.productsInCart = products;
         this.getTotalPrice(products);
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public clearCart(): void {
@@ -31,11 +36,6 @@ export class CartComponent implements OnInit {
   }
 
   public getTotalPrice(products: IProduct[]) {
-    const pricesInCart: number[] = products.map((item) => {
-      return item.price;
-    });
-    this.totalPrice = pricesInCart.reduce((sum, current) => {
-      return sum + current;
-    }, 0);
+    this.totalPrice = products.reduce((sum, product) => sum + product.price, 0);
   }
 }

@@ -14,11 +14,9 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['store']);
-    }
+  ) { }
 
+  ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -29,9 +27,6 @@ export class AuthComponent implements OnInit {
         Validators.pattern('(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'),
       ]),
     });
-  }
-
-  ngOnInit() {
   }
 
   public submit(): void {
