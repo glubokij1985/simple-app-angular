@@ -6,7 +6,7 @@
     <button mat-raised-button color="warn" type="button" *ngIf="productsInCart?.length" (click)="clearCart()" class="btn">Clear cart</button>
   </div>
   <div class="product-list">
-    <app-cart-item [product]="product" *ngFor="let product of productsInCart; let i = index;"></app-cart-item>
+    <app-cart-item [product]="product" *ngFor="let product of productsInCart"></app-cart-item>
     <div class="total-item" *ngIf="productsInCart.length > 0">
       <strong class="product-name">Total price</strong>
       <strong class="product-price">{{ totalPrice }}</strong>
