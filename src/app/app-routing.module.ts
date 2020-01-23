@@ -9,7 +9,7 @@ import { CartComponent } from './cart/containers/cart.component';
 
 const routes: Routes = [
     { path: 'login', component: AuthComponent, canActivate: [OpenAuthGuardService] },
-    { path: 'reset-password', component: ResetPasswordComponent, },
+    { path: 'reset-password', component: ResetPasswordComponent, canActivate: [OpenAuthGuardService] },
     { path: 'store', component: StoreComponent, canActivate: [AuthGuardService] },
     { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
     { path: '', redirectTo: 'login', pathMatch: 'full', },
