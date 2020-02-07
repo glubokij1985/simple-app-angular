@@ -55,14 +55,10 @@ describe('AuthComponent', () => {
       component.submit();
       expect(spy).toHaveBeenCalled();
     });
-  });
 
-  xit('should create form with 2 controls', () => {
-    expect(component.loginForm.contains('email')).toBeTruthy();
-    expect(component.loginForm.contains('password')).toBeTruthy();
+    it('should create form with 2 controls', () => {
+      expect(component.loginForm.contains('email')).toBeTruthy();
+      expect(component.loginForm.contains('password')).toBeTruthy();
+    });
   });
-
-  xit('should be created', inject([AuthService], (service: AuthService) => {
-    expect(component).toBeTruthy();
-  }));
 });
