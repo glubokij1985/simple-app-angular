@@ -23,7 +23,7 @@ describe('ResetPasswordComponent', () => {
         ],
         declarations: [ ResetPasswordComponent ],
         providers: [
-            // AuthService,
+            AuthService,
             LocalService,
         ],
     })

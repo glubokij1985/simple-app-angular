@@ -6,6 +6,7 @@ import { AuthComponent } from './auth.component';
 import { AuthService } from '../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './../../../shared/shared.module';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 class AuthServiceStub {
@@ -16,6 +17,9 @@ describe('AuthComponent', () => {
   let authService: AuthService;
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
+  const mockRouter = {
+    navigate: jasmine.createSpy('navigate'),
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,10 +30,16 @@ describe('AuthComponent', () => {
         RouterTestingModule.withRoutes([]),
       ],
       declarations: [ AuthComponent ],
-      providers: [{
-        provide: AuthService,
-        useClass: AuthServiceStub,
-      }],
+      providers: [
+        {
+          provide: AuthService,
+          useClass: AuthServiceStub,
+        },
+        {
+          provide: Router,
+          useValue: mockRouter,
+        },
+      ],
     })
     .compileComponents();
 
@@ -56,6 +66,11 @@ describe('AuthComponent', () => {
     it('should create form with 2 controls', () => {
       expect(component.loginForm.contains('email')).toBeTruthy();
       expect(component.loginForm.contains('password')).toBeTruthy();
+    });
+
+    it('should navigate to store page', () => {
+      component.submit();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['store']);
     });
   });
 });
