@@ -17,9 +17,7 @@ describe('AuthComponent', () => {
   let authService: AuthService;
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
-  const mockRouter = {
-    navigate: jasmine.createSpy('navigate'),
-  };
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,10 +33,6 @@ describe('AuthComponent', () => {
           provide: AuthService,
           useClass: AuthServiceStub,
         },
-        {
-          provide: Router,
-          useValue: mockRouter,
-        },
       ],
     })
     .compileComponents();
@@ -46,6 +40,7 @@ describe('AuthComponent', () => {
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.debugElement.componentInstance;
     authService = TestBed.get(AuthService);
+    router = TestBed.get(Router);
   });
 
   it('should be created', () => {
@@ -69,8 +64,15 @@ describe('AuthComponent', () => {
     });
 
     it('should navigate to store page', () => {
+      const spy = spyOn(router, 'navigate');
       component.submit();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['store']);
+      expect(spy).toHaveBeenCalledWith(['store']);
+    });
+
+    it('should navigate to reset password page', () => {
+      const spy = spyOn(router, 'navigate');
+      component.goToResetPassword();
+      expect(spy).toHaveBeenCalledWith(['reset-password'], { queryParams: { email: 'sdfsd@gfh.fsd' } });
     });
   });
 });
