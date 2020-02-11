@@ -70,9 +70,14 @@ describe('AuthComponent', () => {
     });
 
     it('should navigate to reset password page', () => {
-      const spy = spyOn(router, 'navigate');
+      const spyRouter = spyOn(router, 'navigate');
+      const spyForm = spyOn(component.loginForm.get('email'), 'markAsTouched');
       component.goToResetPassword();
-      expect(spy).toHaveBeenCalledWith(['reset-password'], { queryParams: { email: 'sdfsd@gfh.fsd' } });
+      if (component.loginForm.valid) {
+        expect(spyRouter).toHaveBeenCalledWith(['reset-password'], { queryParams: { email: '' } });
+      } else {
+        expect(spyForm).toHaveBeenCalled();
+      }
     });
   });
 });

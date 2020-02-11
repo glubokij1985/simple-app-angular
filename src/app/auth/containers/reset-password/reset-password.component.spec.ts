@@ -9,7 +9,12 @@ import { LocalService } from '../../../core/storage/local.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ResetPasswordComponent } from './reset-password.component';
 
+class AuthServiceStub {
+    public login(): void { }
+}
+
 describe('ResetPasswordComponent', () => {
+    let authService: AuthService;
     let component: ResetPasswordComponent;
     let fixture: ComponentFixture<ResetPasswordComponent>;
 
@@ -23,14 +28,17 @@ describe('ResetPasswordComponent', () => {
         ],
         declarations: [ ResetPasswordComponent ],
         providers: [
-            AuthService,
-            LocalService,
+            {
+                provide: AuthService,
+                useClass: AuthServiceStub,
+            }
         ],
     })
     .compileComponents();
 
         fixture = TestBed.createComponent(ResetPasswordComponent);
         component = fixture.debugElement.componentInstance;
+        authService = TestBed.get(AuthService);
   });
 
     it('should be created', () => {
@@ -45,6 +53,14 @@ describe('ResetPasswordComponent', () => {
         it('should create form with 2 controls', () => {
             expect(component.resetPasswordForm.contains('newPassword')).toBeTruthy();
             expect(component.resetPasswordForm.contains('repeatPassword')).toBeTruthy();
+        });
+
+        it('should be valid', () => {
+            const spy = spyOn(authService, 'login');
+            if (component.resetPasswordForm.valid) {
+                component.submit();
+                expect(spy).toHaveBeenCalled();
+            }
         });
     });
 });
