@@ -1,31 +1,50 @@
+import { TestBed, inject } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { AuthComponent } from '../../auth/containers/login/auth.component';
-import { TestBed } from '@angular/core/testing';
 import { LocalService } from '../storage/local.service';
 
 class LocalServiceStub {
-    public isLoggedIn(): void { }
+    public getStorage(): boolean {
+        return true;
+    }
+
+    public setStorage(): void { }
+
+    public removeStorage(): void { }
 }
 
-describe('isLoggedIn', () => {
-    // let component: AuthComponent;
+describe('AuthService', () => {
     let service: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
+                AuthService,
                 {
                     provide: LocalService,
                     useClass: LocalServiceStub,
-                }
+                },
             ]
         });
-        service = new AuthService(null);
-        // component = new AuthComponent(service, null);
+
+        service = TestBed.get(AuthService);
+    });
+
+    it('should create auth service', () => {
+        expect(service).toBeTruthy();
     });
 
     it('should return true if user is logged in', () => {
-        // const result = component.loginForm.valid;
         expect(service.isLoggedIn()).toBeTruthy();
+    });
+
+    it('should set local storage with user credentials', () => {
+        service.login({email: 't@g.d', password: 'psw'});
+        expect(service.isLoggedIn()).toBeTruthy();
+    });
+
+    it('should logout user', () => {
+        service.login({email: 't@g.d', password: 'psw'});
+        service.logout();
+        expect(service.isLoggedIn()).toBeFalsy();
     });
 });

@@ -1,12 +1,10 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AuthService } from '../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from './../../../shared/shared.module';
-import { LocalService } from '../../../core/storage/local.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '../../../core/auth/auth.service';
+import { SharedModule } from './../../../shared/shared.module';
 import { ResetPasswordComponent } from './reset-password.component';
 
 class AuthServiceStub {
