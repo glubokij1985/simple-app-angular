@@ -37,7 +37,7 @@ describe('LocalService', () => {
 
     it('should set local storage item', () => {
         service.setStorage('item', 'some_value');
-        expect(localStorage.getItem('item')).toEqual('some_value');
+        expect(localStorage.getItem('item')).toMatch('some_value');
     });
 
     it('should return local storage item', () => {
