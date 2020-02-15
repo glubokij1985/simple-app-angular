@@ -43,8 +43,8 @@ describe('AuthService', () => {
     });
 
     it('should logout user', () => {
-        service.login({email: 't@g.d', password: 'psw'});
+        const spy = spyOn(service, 'logout');
         service.logout();
-        expect(service.isLoggedIn()).toBeFalsy();
+        expect(spy).toHaveBeenCalled();
     });
 });
