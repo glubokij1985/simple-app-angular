@@ -44,6 +44,6 @@ describe('HeaderComponent', () => {
   it('should logout user', () => {
       const spy = spyOn(router, 'navigate');
       component.logout();
-      expect(spy).toHaveBeenCalledWith(['loggin']);
+      expect(spy).toHaveBeenCalledWith(['login']);
   });
 });

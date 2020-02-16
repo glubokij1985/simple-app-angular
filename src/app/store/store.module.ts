@@ -14,6 +14,6 @@ import { ProductItemComponent } from './components/product-item/product-item.com
   declarations: [
     StoreComponent,
     ProductItemComponent,
-  ]
+  ],
 })
 export class StoreModule { }

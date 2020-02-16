@@ -1,3 +1,4 @@
 [0215/230747.463:ERROR:crash_report_database_win.cc(580)] CreateDirectory C:\Users\glubokie\AppData\Local\Temp\karma-73396601\Crashpad: Системе не удается найти указанный путь. (0x3)
 [0215/230747.535:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: Канал был закрыт. (0x6D)
 [0215/230747.537:ERROR:crash_report_database_win.cc(580)] CreateDirectory C:\Users\glubokie\AppData\Local\Temp\karma-73396601\Crashpad: Системе не удается найти указанный путь. (0x3)
+[0216/155453.281:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
