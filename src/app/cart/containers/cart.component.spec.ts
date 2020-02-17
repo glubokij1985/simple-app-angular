@@ -8,46 +8,43 @@ import { CartService } from '../services/cart.service';
 import { LocalService } from '../../core/storage/local.service';
 import { IProduct } from '../../models/product.interface';
 
-class CartComponentStub {
-    public getTotalPrice(a: number, b: number) {
-        return a + b;
-    }
-}
-
 describe('CartComponent', () => {
+  let service: CartService;
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
-  let mockCartComponent: CartComponentStub = new CartComponentStub();
+  let spy: any;
+  let totalPrice = 0;
   const products: IProduct[] = [
-      {
-          name: 'Product 1',
-          price: 15,
-          id: 1,
-      },
-      {
-          name: 'Product 2',
-          price: 5,
-          id: 2,
-      }
+    {
+      name: 'Product 1',
+      price: 15,
+      id: 1,
+    },
+    {
+      name: 'Product 2',
+      price: 5,
+      id: 2,
+    }
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-        imports: [
-            CommonModule,
-            BrowserAnimationsModule,
-        ],
-        declarations: [CartComponent],
-        providers: [
-          CartService,
-          LocalService,
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        CommonModule,
+        BrowserAnimationsModule,
+      ],
+      declarations: [CartComponent],
+      providers: [
+        CartService,
+        LocalService,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CartComponent);
     component = fixture.debugElement.componentInstance;
+    service = TestBed.get(CartService);
   });
 
   it('should be created', () => {
@@ -55,14 +52,16 @@ describe('CartComponent', () => {
   });
 
   it('should call clearCart method', () => {
-    const spy = spyOn(component, 'clearCart');
+    spy = spyOn(service, 'clear').and.callFake(() => true);
     component.clearCart();
-    expect(spy).toHaveBeenCalled();
+    expect(service.clear).toHaveBeenCalled();
   });
 
   it('should return prices sum', () => {
-    // const spy = spyOn(component, 'getTotalPrice');
-    // component.getTotalPrice(products);
-    expect(mockCartComponent.getTotalPrice(15, 5)).toEqual(21);
+    spy = spyOn(component, 'getTotalPrice').and.callFake((mockProducts) => {
+      totalPrice = mockProducts.reduce((sum, product) => sum + product.price, 0);
+    });
+    component.getTotalPrice(products);
+    expect(totalPrice).toEqual(20);
   });
 });
