@@ -17,7 +17,7 @@ describe('ProductItemComponent', () => {
   let component: ProductItemComponent;
   let fixture: ComponentFixture<ProductItemComponent>;
   let spy: any;
-  let products: IProduct[] = [];
+  const products: IProduct[] = [];
   const product: IProduct = {
     name: 'Product 1',
     price: 15,
@@ -52,14 +52,16 @@ describe('ProductItemComponent', () => {
   });
 
   it('should add product to cart', () => {
-    const spy = spyOn(component, 'addToCart');
-    component.addToCart(null);
-    expect(spy).toHaveBeenCalledTimes(2);
+    spy = spyOn(component, 'addToCart').and.callFake((mockProduct) => {
+      products.push(mockProduct);
+    });
+    component.addToCart(product);
+    expect(products[0]).toBeTruthy();
   });
 
   it('should call isInCart method', () => {
-    const spy = spyOn(component, 'isInCart');
-    component.isInCart(null);
+    spy = spyOn(component, 'isInCart');
+    component.isInCart(product);
     expect(spy).toHaveBeenCalled();
   });
 });
