@@ -60,5 +60,15 @@ describe('ResetPasswordComponent', () => {
                 expect(spy).toHaveBeenCalled();
             }
         });
+
+        // it('passwords should be matched', () => {
+        //     const psw1 = 'qQ1!qwerty';
+        //     const psw2 = 'qQ1!qwerty';
+        //     const spy = spyOn(component, 'isMatched').and.callFake((form: AbstractControl): boolean => {
+        //         return psw1 === psw2;
+        //     });
+        //     component.isMatched();
+        //     expect(spy).toBeTruthy();
+        // });
     });
 });

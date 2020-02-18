@@ -1,0 +1,28 @@
+import { TestBed } from '@angular/core/testing';
+import { CartService } from './cart.service';
+import { LocalService } from '../../core/storage/local.service';
+
+class CartServiceStub {
+}
+
+describe('CartService', () => {
+    let service: CartService;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                LocalService,
+                {
+                    provide: CartService,
+                    useClass: CartServiceStub,
+                },
+            ]
+        });
+
+        service = TestBed.get(CartService);
+    });
+
+    it('should create CartService', () => {
+        expect(service).toBeTruthy();
+    });
+});

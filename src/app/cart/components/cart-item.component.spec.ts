@@ -6,26 +6,25 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CartItemComponent } from './cart-item.component';
 import { CartService } from './../services/cart.service';
 import { LocalService } from './../../core/storage/local.service';
-// import { IProduct } from '../../models/product.interface';
+import { IProduct } from '../../models/product.interface';
 
 describe('CartItemComponent', () => {
   let service: CartService;
   let component: CartItemComponent;
   let fixture: ComponentFixture<CartItemComponent>;
-//   let spy: any;
-//   let totalPrice = 0;
-//   const products: IProduct[] = [
-//     {
-//       name: 'Product 1',
-//       price: 15,
-//       id: 1,
-//     },
-//     {
-//       name: 'Product 2',
-//       price: 5,
-//       id: 2,
-//     }
-//   ];
+  let spy: any;
+  const products: IProduct[] = [
+    {
+      name: 'Product 1',
+      price: 15,
+      id: 1,
+    },
+    {
+      name: 'Product 2',
+      price: 5,
+      id: 2,
+    }
+  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,17 +50,14 @@ describe('CartItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-//   it('should call clearCart method', () => {
-//     spy = spyOn(service, 'clear').and.callFake(() => true);
-//     component.clearCart();
-//     expect(service.clear).toHaveBeenCalled();
-//   });
-
-//   it('should return prices sum', () => {
-//     spy = spyOn(component, 'getTotalPrice').and.callFake((mockProducts) => {
-//       totalPrice = mockProducts.reduce((sum, product) => sum + product.price, 0);
-//     });
-//     component.getTotalPrice(products);
-//     expect(totalPrice).toEqual(20);
-//   });
+  it('should remove item from cart', () => {
+    let productsAfterRemove: IProduct[];
+    spy = spyOn(service, 'removeProductFromCart').and.callFake((id: number) => {
+      productsAfterRemove = products.filter(item => {
+        return item.id !== id;
+      });
+    });
+    component.removeFromCart(1);
+    expect(productsAfterRemove.length).toEqual(1);
+  });
 });
