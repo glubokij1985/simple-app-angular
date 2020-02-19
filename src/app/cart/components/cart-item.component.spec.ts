@@ -57,6 +57,7 @@ describe('CartItemComponent', () => {
         return item.id !== id;
       });
     });
+    // TODO: should check call the method, other things in service
     component.removeFromCart(1);
     expect(productsAfterRemove.length).toEqual(1);
   });

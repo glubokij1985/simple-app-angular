@@ -72,6 +72,7 @@ describe('AuthComponent', () => {
       const spyRouter = spyOn(router, 'navigate');
       const spyForm = spyOn(component.loginForm.get('email'), 'markAsTouched');
       component.goToResetPassword();
+      // TODO: separated to two different tests
       if (component.loginForm.valid) {
         expect(spyRouter).toHaveBeenCalledWith(['reset-password'], { queryParams: { email: '' } });
       } else {
