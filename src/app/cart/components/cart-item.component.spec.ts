@@ -6,25 +6,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CartItemComponent } from './cart-item.component';
 import { CartService } from './../services/cart.service';
 import { LocalService } from './../../core/storage/local.service';
-import { IProduct } from '../../models/product.interface';
 
 describe('CartItemComponent', () => {
   let service: CartService;
   let component: CartItemComponent;
   let fixture: ComponentFixture<CartItemComponent>;
   let spy: any;
-  const products: IProduct[] = [
-    {
-      name: 'Product 1',
-      price: 15,
-      id: 1,
-    },
-    {
-      name: 'Product 2',
-      price: 5,
-      id: 2,
-    }
-  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -50,15 +37,9 @@ describe('CartItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should remove item from cart', () => {
-    let productsAfterRemove: IProduct[];
-    spy = spyOn(service, 'removeProductFromCart').and.callFake((id: number) => {
-      productsAfterRemove = products.filter(item => {
-        return item.id !== id;
-      });
-    });
-    // TODO: should check call the method, other things in service
+  it('should call removing item from cart method', () => {
+    spy = spyOn(service, 'removeProductFromCart');
     component.removeFromCart(1);
-    expect(productsAfterRemove.length).toEqual(1);
+    expect(service.removeProductFromCart).toHaveBeenCalledWith(1);
   });
 });
