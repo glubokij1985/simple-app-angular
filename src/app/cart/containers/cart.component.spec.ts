@@ -52,7 +52,7 @@ describe('CartComponent', () => {
   });
 
   it('should call clearCart method', () => {
-    spy = spyOn(service, 'clear').and.callFake(() => true);
+    spy = spyOn(service, 'clear');
     component.clearCart();
     expect(service.clear).toHaveBeenCalled();
   });

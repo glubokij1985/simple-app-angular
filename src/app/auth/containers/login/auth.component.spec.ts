@@ -69,13 +69,16 @@ describe('AuthComponent', () => {
     });
 
     it('should navigate to reset password page', () => {
+      const emailControl = component.loginForm.get('email');
       const spyRouter = spyOn(router, 'navigate');
+      spyOnProperty(emailControl, 'valid', 'get').and.returnValue(true);
       component.goToResetPassword();
       expect(spyRouter).toHaveBeenCalledWith(['reset-password'], { queryParams: { email: '' } });
     });
 
     it('should show errors field', () => {
-      const spyForm = spyOn(component.loginForm.get('email'), 'markAsTouched');
+      const emailControl = component.loginForm.get('email');
+      const spyForm = spyOn(emailControl, 'markAsTouched');
       component.goToResetPassword();
       expect(spyForm).toHaveBeenCalled();
     });

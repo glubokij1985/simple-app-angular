@@ -13,6 +13,7 @@ class StoreComponentStub {
 }
 
 describe('StoreComponent', () => {
+  let service: CartService;
   let component: StoreComponent;
   let fixture: ComponentFixture<StoreComponent>;
 
@@ -38,6 +39,7 @@ describe('StoreComponent', () => {
 
     fixture = TestBed.createComponent(StoreComponent);
     component = fixture.debugElement.componentInstance;
+    service = TestBed.get(CartService);
   });
 
   it('should be created', () => {
@@ -45,7 +47,7 @@ describe('StoreComponent', () => {
   });
 
   it('should return true if product is in cart', () => {
-    const spy = spyOn(component, 'isInCart');
+    const spy = spyOn(service, 'isInCart');
     component.isInCart(null);
     expect(spy).toHaveBeenCalled();
   });

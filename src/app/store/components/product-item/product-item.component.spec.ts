@@ -60,7 +60,7 @@ describe('ProductItemComponent', () => {
   });
 
   it('should call isInCart method', () => {
-    spy = spyOn(component, 'isInCart');
+    spy = spyOn(service, 'isInCart');
     component.isInCart(product);
     expect(spy).toHaveBeenCalled();
   });
