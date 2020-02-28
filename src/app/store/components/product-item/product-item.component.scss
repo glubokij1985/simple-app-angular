@@ -5,6 +5,7 @@
 }
 .product-name{
     width: 30%;
+    position: relative;
 }
 .product-price{
     color: #816398;
@@ -15,5 +16,17 @@
     flex-grow: 1;
     .btn{
         min-width: 105px;
+    }
+}
+:host::ng-deep{
+    .tooltip{
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        display: inline-block;
+        padding: 5px;
+        background: #f7f7f7;
     }
 }
