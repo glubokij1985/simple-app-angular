@@ -20,6 +20,8 @@
 }
 :host::ng-deep{
     .tooltip{
+        font-size: 12px;
+        color: #000;
         position: absolute;
         bottom: 100%;
         left: 0;

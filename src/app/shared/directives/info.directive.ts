@@ -1,6 +1,5 @@
-import { Directive, HostListener, ElementRef, Renderer2, Input, Inject } from '@angular/core';
+import { Directive, HostListener, ElementRef, Renderer2, Input } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[appInfo]',
@@ -14,12 +13,14 @@ export class InfoDirective {
     private el: ElementRef,
     private renderer: Renderer2,
     private sanitizer: DomSanitizer,
-    @Inject(DOCUMENT) private document,
   ) { }
 
   @HostListener('mouseenter', ['$event']) public onEnter(event: Element) {
+    if (!this.product) {
+      return;
+    }
     const tooltip = document.createElement('span');
-    tooltip.innerHTML = this.product ? this.product.id : 'Product doesn\'t have ID';
+    tooltip.innerHTML = this.product ? `Product ID: ${this.product.id}` : 'Product doesn\'t have ID';
     tooltip.classList.add('tooltip');
     // this.tooltipWrap = this.sanitizer.bypassSecurityTrustHtml(
     //   `<span class="tooltip">${this.product ? this.product.id : 'Product doesn\'t have ID'}</span>`
@@ -28,8 +29,16 @@ export class InfoDirective {
   }
 
   @HostListener('mouseleave') public onLeave() {
-    const tooltip = this.renderer.
-    this.renderer.removeChild(this.el.nativeElement, child);
+    const childrenElements = this.el.nativeElement.children;
+    if (!this.product) {
+      return;
+    } else if (childrenElements) {
+      for (const child of childrenElements) {
+        if (child.classList.contains('tooltip')) {
+          this.renderer.removeChild(this.el.nativeElement, child);
+        }
+      }
+    }
   }
 
 }
