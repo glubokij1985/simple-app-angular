@@ -1,6 +1,23 @@
 <app-header [title]="title" [productsInCart]="products$ | async"></app-header>
 <div class="container">
+  <div class="buttons-holder">
+    <button mat-raised-button class="btn" type="button" (click)="searchField = 'name'">
+      Search By Name
+    </button>
+    <button mat-raised-button class="btn" type="button" (click)="searchField = 'price'">
+      Search By Price
+    </button>
+    <button mat-raised-button class="btn" type="button" (click)="addNewProduct()">
+      Add New Product
+    </button>
+  </div>
+  <div class="search-holder">
+    <label for="search">Search</label>
+    <input id="search" type="text" [(ngModel)]="search">
+  </div>
   <div class="product-list">
-    <app-product-item [product]="product" *ngFor="let product of productsInStore"></app-product-item>
+    <app-product-item
+      [product]="product"
+      *ngFor="let product of productsInStore | filter:search:searchField"></app-product-item>
   </div>
 </div>

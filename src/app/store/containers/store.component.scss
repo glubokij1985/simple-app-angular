@@ -2,6 +2,23 @@
     max-width: 400px;
     padding-top: 15px;
 }
+.search-holder{
+    margin-bottom: 15px;
+    input{
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        height: 30px;
+        padding: 0 5px;
+    }
+}
+.buttons-holder{
+    margin-bottom: 5px;
+    .btn{
+        margin: 0 10px 10px 0;
+    }
+}
 app-product-item{
     display: block;
     &:nth-child(odd){

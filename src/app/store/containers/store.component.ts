@@ -13,6 +13,7 @@ export class StoreComponent implements OnInit {
   public title = 'Store';
   public productsInStore: IProduct[];
   public readonly products$ = this.cartService.products$;
+  public searchField = 'name';
 
   constructor(
     private productsService: ProductsService,
@@ -25,5 +26,13 @@ export class StoreComponent implements OnInit {
 
   public isInCart(product: IProduct): boolean {
     return this.cartService.isInCart(product);
+  }
+
+  public addNewProduct() {
+    this.productsInStore.unshift({
+      name: 'Product 7',
+      price: 777,
+      id: 7,
+    });
   }
 }

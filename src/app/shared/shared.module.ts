@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { InfoDirective } from './directives/info.directive';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -14,11 +15,13 @@ import { InfoDirective } from './directives/info.directive';
   declarations: [
     HeaderComponent,
     InfoDirective,
+    FilterPipe,
   ],
   exports: [
     MaterialModule,
     HeaderComponent,
     InfoDirective,
+    FilterPipe,
   ],
 })
 export class SharedModule { }
