@@ -21,3 +21,10 @@
       *ngFor="let product of productsInStore | filter:search:searchField"></app-product-item>
   </div>
 </div>
+<div class="test-counter">
+  <div class="btns-holder">
+    <button mat-raised-button type="button" class="btn" (click)="increaseCounter()">Increase counter</button>
+    <button mat-raised-button type="button" class="btn" (click)="stop()">Cancel Subscription</button>
+  </div>
+  <span>Current Counter value: {{ currentCount }}</span>
+</div>
