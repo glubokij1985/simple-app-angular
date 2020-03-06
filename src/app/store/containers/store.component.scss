@@ -25,3 +25,14 @@ app-product-item{
         background-color: rgba(#816398, .1);
     }
 }
+input{
+    &.ng-invalid.ng-touched{
+        border: 1px solid red;
+    }
+    &.ng-valid{
+        border: 1px solid green;
+    }
+}
+.errors{
+    color: red;
+}

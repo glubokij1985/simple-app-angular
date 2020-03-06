@@ -21,10 +21,35 @@
       *ngFor="let product of productsInStore | filter:search:searchField"></app-product-item>
   </div>
 </div>
-<div class="test-counter">
-  <div class="btns-holder">
-    <button mat-raised-button type="button" class="btn" (click)="increaseCounter()">Increase counter</button>
-    <button mat-raised-button type="button" class="btn" (click)="stop()">Cancel Subscription</button>
+<div class="container">
+  <div class="test-counter">
+    <div class="btns-holder">
+      <button mat-raised-button type="button" class="btn" (click)="increaseCounter()">Increase counter</button>
+      <button mat-raised-button type="button" class="btn" (click)="stop()">Cancel Subscription</button>
+    </div>
+    <span>Current Counter value: {{ currentCount }}</span>
   </div>
-  <span>Current Counter value: {{ currentCount }}</span>
+</div>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="input-holder">
+      <label>
+        <input type="email" placeholder="Email" formControlName="email">
+      </label>
+      <div class="errors" *ngIf="form.get('email').invalid && form.get('email').touched">
+        <small *ngIf="form.get('email').errors.required">Email is required</small>
+        <small *ngIf="form.get('email').errors.email">Email is not valid</small>
+      </div>
+    </div>
+    <div class="input-holder">
+      <label>
+        <input type="password" placeholder="Password" formControlName="password">
+      </label>
+      <div class="errors" *ngIf="form.get('password').invalid && form.get('password').touched">
+        <small *ngIf="form.get('password').errors.required">Password is required</small>
+        <small *ngIf="form.get('password').errors.minlength">Password should be {{ form.get('password').errors.minlength.requiredLength }}. Actual length is {{ form.get('password').errors.minlength.actualLength }}</small>
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
 </div>

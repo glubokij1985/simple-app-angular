@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../../cart/services/cart.service';
@@ -21,6 +22,8 @@ export class StoreComponent implements OnInit {
   public subscription: Subscription;
   public stream$: Subject<number> = new Subject<number>();
 
+  public form: FormGroup;
+
   constructor(
     private productsService: ProductsService,
     private cartService: CartService,
@@ -31,6 +34,17 @@ export class StoreComponent implements OnInit {
 
     this.subscription = this.stream$.subscribe((value) => {
       this.currentCount = value;
+    });
+
+    this.form = new FormGroup({
+      email: new FormControl('', [
+        Validators.email,
+        Validators.required,
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(7),
+      ]),
     });
   }
 
@@ -53,5 +67,9 @@ export class StoreComponent implements OnInit {
   public increaseCounter(): void {
     this.counterValue++;
     this.stream$.next(this.counterValue);
+  }
+
+  public submit(): void {
+    console.log(this.form);
   }
 }
