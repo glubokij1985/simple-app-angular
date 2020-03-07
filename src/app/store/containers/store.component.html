@@ -50,6 +50,15 @@
         <small *ngIf="form.get('password').errors.minlength">Password should be {{ form.get('password').errors.minlength.requiredLength }}. Actual length is {{ form.get('password').errors.minlength.actualLength }}</small>
       </div>
     </div>
+    <div class="inputs-group" [formGroupName]="skills">
+      <button type="button" (click)="addSkill()">Add Skill</button>
+      <div class="input-holder" *ngFor="let skill of form.get('skills').controls; let idx = index">
+        <label>
+          Skill {{ idx }}
+          <input type="text" placeholder="Skill" [formControlName]="idx">
+        </label>
+      </div>
+    </div>
     <button type="submit" [disabled]="form.invalid">Submit</button>
   </form>
 </div>

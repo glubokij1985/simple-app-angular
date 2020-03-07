@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../../cart/services/cart.service';
@@ -41,10 +41,11 @@ export class StoreComponent implements OnInit {
         Validators.email,
         Validators.required,
       ]),
-      password: new FormControl(null, [
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(7),
       ]),
+      skills: new FormArray([]),
     });
   }
 
@@ -71,5 +72,10 @@ export class StoreComponent implements OnInit {
 
   public submit(): void {
     console.log(this.form);
+  }
+
+  public addSkill(): void {
+    const control = new FormControl('', Validators.required);
+    (this.form.get('skills') as FormArray).push(control);
   }
 }
