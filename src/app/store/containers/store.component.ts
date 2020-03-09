@@ -4,6 +4,7 @@ import { Subscription, Subject } from 'rxjs';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../../cart/services/cart.service';
 import { IProduct } from '../../models/product.interface';
+import { CustomEmailValidators } from '../../shared/validators/custom-email-validators';
 
 @Component({
   selector: 'app-store',
@@ -40,6 +41,7 @@ export class StoreComponent implements OnInit {
       email: new FormControl('', [
         Validators.email,
         Validators.required,
+        CustomEmailValidators.restrictedEmails,
       ]),
       password: new FormControl('', [
         Validators.required,
