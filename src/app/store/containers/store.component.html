@@ -39,7 +39,8 @@
       <div class="errors" *ngIf="form.get('email').invalid && form.get('email').touched">
         <small *ngIf="form.get('email').errors.required">Email is required</small>
         <small *ngIf="form.get('email').errors.email">Email is not valid</small>
-        <small *ngIf="form.get('email').errors.restrictedEmail">Email {{ form.get('email').value }} is restricted</small>
+        <small *ngIf="form.get('email').errors.restrictedEmails">Email {{ form.get('email').value }} is restricted</small>
+        <small *ngIf="form.get('email').errors.uniqEmail">Email {{ form.get('email').value }} is not uniq</small>
       </div>
     </div>
     <div class="input-holder">
@@ -60,6 +61,6 @@
         </label>
       </div>
     </div>
-    <button type="submit" [disabled]="form.invalid">Submit</button>
+    <button type="submit" [disabled]="form.invalid || form.pending">Submit</button>
   </form>
 </div>

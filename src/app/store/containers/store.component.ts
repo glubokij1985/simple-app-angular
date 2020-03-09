@@ -42,7 +42,7 @@ export class StoreComponent implements OnInit {
         Validators.email,
         Validators.required,
         CustomEmailValidators.restrictedEmails,
-      ]),
+      ], [CustomEmailValidators.uniqEmail]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(7),
@@ -73,7 +73,8 @@ export class StoreComponent implements OnInit {
   }
 
   public submit(): void {
-    console.log(this.form);
+    console.log(this.form.value);
+    this.form.reset();
   }
 
   public addSkill(): void {
